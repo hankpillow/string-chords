@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-size: 10px;
+}
+
+header {
+	padding: 1rem;
+	h1 {
+		font-size: 2.5em;
+		text-align: center;
+	}
+}
+
+main {
+	display: flex;
+	flex-direction: row;
+}
+
+.instrument {
+	flex: 1;
+}
+
+summary {
+	font-size: 1.4em;
+	border-top:1px solid black;
+	border-left:1px solid black;
+}
+
+footer {
+	color: darkolivegreen;
+	border-top: 1px solid darkolivegreen;
+	font-size: 2rem;
+	margin: auto;
+	margin-top: 2rem;
+	text-align: center;
+	width: min(50vh, 100%);
+}

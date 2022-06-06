@@ -1,0 +1,16 @@
+@import "variables";
+
+.instrument {
+	font-size: 200%;
+}
+
+.arm {
+	border: 1px solid black;
+	display: grid;
+	grid-auto-rows: $note-size;
+	grid-template-columns: repeat(4, $note-size);
+	margin: auto;
+	max-width: fit-content;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+}
