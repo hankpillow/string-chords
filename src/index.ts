@@ -1,17 +1,15 @@
 import "./index.scss";
-
-import BanjoSetting from "./instruments/banjo.js";
-import Instrument from "./instrument.ui.js";
-import { IChord } from "./chord.ui";
-
-const armElement: HTMLDivElement = document.querySelector(
-	".instrument"
-) as HTMLDivElement;
+import BanjoSetting from "./settings/banjo.ts";
+import Instrument from "./ui/instrument.ts";
+import { StringNote } from "./ui/string-note.ts";
+import { render, html } from "htm/preact/standalone";
 
 const instrument = Instrument({
 	...BanjoSetting,
-	onChange: (pressedStrings: Array<IChord>) => {
-		console.table(pressedStrings);
-	},
+	// onChange: (pressedStrings: Array<StringNote>) => {
+	// 	console.table(pressedStrings);
+	// },
 });
-armElement.appendChild(instrument.html);
+
+render(instrument, document.querySelector(".instrument"));
+// render(html`<h1>igor</h1>`, document.querySelector(".instrument"));

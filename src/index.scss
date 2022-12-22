@@ -1,3 +1,8 @@
+$note-size: 3rem;
+$note-rest: darkgreen;
+$note-hover: darkred;
+$note-pressed: darkblue;
+
 *,
 *::after,
 *::before {
@@ -12,6 +17,7 @@ body {
 
 header {
 	padding: 1rem;
+
 	h1 {
 		font-size: 2.5em;
 		text-align: center;
@@ -25,15 +31,20 @@ main {
 
 .instrument {
 	flex: 1;
+	// font-size: 200%;
 }
 
-summary {
+.summary {
 	font-size: 1.4em;
-	border-top:1px solid black;
-	border-left:1px solid black;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	position: fixed;
+	right: 0;
+	top: 0;
+	bottom: 0;
 }
 
-footer {
+.footer {
 	color: darkolivegreen;
 	border-top: 1px solid darkolivegreen;
 	font-size: 2rem;
@@ -41,4 +52,84 @@ footer {
 	margin-top: 2rem;
 	text-align: center;
 	width: min(50vh, 100%);
+}
+
+.arm {
+	border: 1px solid black;
+	display: flex;
+	flex-direction:row;
+	// display: grid;
+	// grid-auto-rows: $note-size;
+	/*TODO: has to be dynamic*/
+	// grid-template-columns: repeat(4, $note-size);
+	// direction: rtl;
+	font-size:2em;
+	margin: auto;
+	max-width: fit-content;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+}
+
+.string {
+	display:flex;
+	flex:1;
+	flex-direction:column;
+}
+
+.note {
+	cursor: pointer;
+	font-size: 1.4em;
+	background-color: beige;
+	color: $note-rest;
+	border: 0;
+	border-bottom: 1px solid black;
+	justify-content: center;
+	padding:0.2em;
+	display:block;
+	outline: 0;
+	width: 3rem;
+	height: 3rem;
+
+	&:hover {
+	color: $note-hover;
+	}
+
+	&[aria-pressed="true"] {
+	color: $note-pressed;
+		background-color: darkred;
+
+		&:hover {
+			color: white;
+		}
+	}
+
+	&[data-minor=true],
+	&[data-major=true] {
+		font-size: 0.8em;
+	}
+
+	&[data-fret="0"] {
+		background-color: white;
+
+		&[aria-pressed="true"] {
+			color: white;
+			background-color: darkred;
+
+			&:hover {
+				color: white;
+			}
+		}
+	}
+
+	&:not([data-fret="0"]) {
+		&[data-last-string="true"]::before {
+			position: absolute;
+			line-height: 0;
+			transform: translate(-5rem, $note-size);
+			font-size: 1.5rem;
+			min-width: 2ch;
+			content: attr(data-fret);
+			color: black;
+		}
+	}
 }

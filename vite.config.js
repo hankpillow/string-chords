@@ -1,10 +1,13 @@
 import { defineConfig } from "vite";
 
 export default defineConfig({
-	esbuild: {
-		//jsxFactory: "h",
-		//jsxFragment: "Fragment",
-		//loader: "tsx",
-		//include: /\.tsx$/,
-	},
+  server: {
+    root: "index.html",
+    open: "index.html",
+  },
+  esbuild: {
+    // define: {
+    //   this:"window"
+    // },
+  },
 });
