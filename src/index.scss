@@ -1,11 +1,13 @@
 $note-size: 3rem;
-$note-rest: darkgreen;
+$note-background:white;
+$note-font-size: 1.5rem;
+$note-font-family:'Courier';
+$note-font-color-rest: black;
+$note-background-hover:beige;
 $note-hover: darkred;
 $note-pressed: darkblue;
 
-*,
-*::after,
-*::before {
+*, *::after, *::before {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -15,9 +17,15 @@ body {
 	font-size: 10px;
 }
 
+menu {
+	font-size:1.4rem;
+	label {
+		display:block;
+	}
+}
+
 header {
 	padding: 1rem;
-
 	h1 {
 		font-size: 2.5em;
 		text-align: center;
@@ -29,19 +37,79 @@ main {
 	flex-direction: row;
 }
 
-.instrument {
+[id=instrument] {
 	flex: 1;
-	// font-size: 200%;
+
+	&:not([data-display*=note]){
+		.note:not([data-major],[data-minor]) span {
+			opacity:0;
+		};
+	}
+	&:not([data-display*=major]){
+		.note[data-major] span {
+			opacity:0;
+		};
+	}
+	&:not([data-display*=minor]){
+		.note[data-minor] span {
+			opacity:0;
+		};
+	}
+	&:not([data-display*=fret]){
+		.note:after{
+			content:none;
+		};
+	}
 }
 
-.summary {
-	font-size: 1.4em;
-	border-top: 1px solid black;
-	border-left: 1px solid black;
-	position: fixed;
-	right: 0;
-	top: 0;
-	bottom: 0;
+.note {
+	appearance:none;
+	display:flex;
+	border: 0;
+	cursor: pointer;
+	line-height:2rem;
+	width: $note-size;
+	height: $note-size;
+	background-color: $note-background;
+	border-bottom:1px solid black;
+
+	span {
+		font-family: $note-font-family;
+		font-size: $note-font-size;
+		color: $note-font-color-rest;
+		font-size:1.3rem;
+		line-height:2.8rem;
+		min-height:100%;
+		min-width:100%;
+	}
+
+	&:hover {
+		color: $note-hover;
+		background-color: $note-background-hover;
+	}
+
+	&[aria-pressed="true"] {
+	}
+
+	&[data-minor=true],
+	&[data-major=true] {
+		span{
+			// opacity:0.5;
+		}
+	}
+
+	// show frests
+	&[data-string="1"]:after{
+		color:black;
+		content:attr(data-fret);
+		display:flex;
+		position:relative;
+		font-size:1rem;
+		width: 16px;
+		height: 16px;
+		right:-1rem;
+		top:2rem;
+	}
 }
 
 .footer {
@@ -56,13 +124,9 @@ main {
 
 .arm {
 	border: 1px solid black;
+	border-top:0;
 	display: flex;
 	flex-direction:row;
-	// display: grid;
-	// grid-auto-rows: $note-size;
-	/*TODO: has to be dynamic*/
-	// grid-template-columns: repeat(4, $note-size);
-	// direction: rtl;
 	font-size:2em;
 	margin: auto;
 	max-width: fit-content;
@@ -70,66 +134,3 @@ main {
 	padding-top: 1rem;
 }
 
-.string {
-	display:flex;
-	flex:1;
-	flex-direction:column;
-}
-
-.note {
-	cursor: pointer;
-	font-size: 1.4em;
-	background-color: beige;
-	color: $note-rest;
-	border: 0;
-	border-bottom: 1px solid black;
-	justify-content: center;
-	padding:0.2em;
-	display:block;
-	outline: 0;
-	width: 3rem;
-	height: 3rem;
-
-	&:hover {
-	color: $note-hover;
-	}
-
-	&[aria-pressed="true"] {
-	color: $note-pressed;
-		background-color: darkred;
-
-		&:hover {
-			color: white;
-		}
-	}
-
-	&[data-minor=true],
-	&[data-major=true] {
-		font-size: 0.8em;
-	}
-
-	&[data-fret="0"] {
-		background-color: white;
-
-		&[aria-pressed="true"] {
-			color: white;
-			background-color: darkred;
-
-			&:hover {
-				color: white;
-			}
-		}
-	}
-
-	&:not([data-fret="0"]) {
-		&[data-last-string="true"]::before {
-			position: absolute;
-			line-height: 0;
-			transform: translate(-5rem, $note-size);
-			font-size: 1.5rem;
-			min-width: 2ch;
-			content: attr(data-fret);
-			color: black;
-		}
-	}
-}

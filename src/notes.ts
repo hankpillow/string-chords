@@ -18,6 +18,16 @@ export enum Note {
   B = "B",
 }
 
+export const DefaultNotes = new Set([
+  Note.C,
+  Note.D,
+  Note.E,
+  Note.F,
+  Note.A,
+  Note.G,
+  Note.B,
+]);
+
 export const MajorNotes = new Set([
   Note.CMajor,
   Note.DMajor,
@@ -32,16 +42,6 @@ export const MinorNotes = new Set([
   Note.GMinor,
   Note.AMinor,
   Note.BMinor,
-]);
-
-export const DefaultNotes = new Set([
-  Note.C,
-  Note.D,
-  Note.E,
-  Note.F,
-  Note.A,
-  Note.G,
-  Note.B,
 ]);
 
 type TypeScale = Record<string, string>;
@@ -106,18 +106,21 @@ export interface NoteSettings {
 
 export const isMajor = (note: Note): boolean => MajorNotes.has(note);
 export const isMinor = (note: Note): boolean => MinorNotes.has(note);
-
 export const notMajor = (note: Note): boolean => !MajorNotes.has(note);
 export const notMinor = (note: Note): boolean => !MinorNotes.has(note);
 
-export const isOpen = (note: Note): boolean => DefaultNotes.has(note);
-export const notOpen = (note: Note): boolean => !DefaultNotes.has(note);
-
-export const getNoteFromFret = (note: Note, fret: number, scale: Scales) => {
-  let lastNote = note;
-  let fretLoop = fret;
-  while (--fretLoop) {
-    lastNote = scale[lastNote] as Note;
+/**
+ * @param {Note} note
+ * @param {number} fret
+ * @param {Scales} scale
+ */
+export const getNoteFromFret = (note: Note, fret: number, scale: Scales): NoteSettings => {
+  const octave = Math.ceil(fret / 12);
+  if (fret === 0) {
+    return { name: note, octave, fret };
   }
-  return { name: lastNote, octave: Math.ceil(fret / 12), fret };
+  let lastNote = note;
+  let count = fret;
+  while (count--) lastNote = scale[lastNote] as Note;
+  return { name: lastNote, octave, fret } as NoteSettings;
 };

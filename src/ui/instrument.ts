@@ -13,11 +13,11 @@ export interface InstrumentSettings {
 
 const getAllNotes = (strings: NoteSettings[], frets: number, scale: Scales) => {
   return strings.map((noteSetting: NoteSettings) => {
-    let fret = 1;
+    let fret = 0;
     const stringNotes = [];
     while (fret <= frets) {
       stringNotes.push(getNoteFromFret(noteSetting.name, fret, scale));
-      fret++;
+      fret += 1;
     }
     return stringNotes;
   });
@@ -32,23 +32,27 @@ const Instrument = (settings: InstrumentSettings) => {
   const allNotes = notesGrid
     .reverse()
     .map(
-      (notes: NoteSettings[]) =>
+      (notes: NoteSettings[], index) =>
         html`<div class="string">
           ${notes.map(
-            (note: NoteSettings) =>
-              html`<button 
+          (note: NoteSettings) =>
+            html`<button 
                 data-fret="${note.fret}" 
+                data-string="${notesGrid.length - index}" 
                 data-minor="${isMinor(note.name)}" 
                 data-major="${isMajor(note.name)}" 
                 aria-pressed="false"
                 class="note"
               >
-                ${note.name}
+                <span>${note.name}</span>
               </button>`
-          )}
+        )}
         </div>`
     );
-  return html`<div class="arm">${allNotes}</div>`;
+  const render = () => {
+    return html`<div class="arm">${allNotes}</div>`;
+  }
+  return { render }
 };
 
 export default Instrument;
