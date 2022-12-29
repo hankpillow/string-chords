@@ -3,14 +3,16 @@ $note-background:white;
 $note-font-size: 1.5rem;
 $note-font-family:'Courier';
 $note-font-color-rest: black;
-$note-background-hover:beige;
+$note-hover-background:beige;
 $note-hover: darkred;
-$note-pressed: darkblue;
+$note-pressed-background:lightblue;
 
 *, *::after, *::before {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	font-family: Sans;
+	font-weight: normal;
 }
 
 body {
@@ -37,9 +39,28 @@ main {
 	flex-direction: row;
 }
 
+[id=views],
+[id=chords] {
+	font-size:1.4rem;
+	border:1px solid black;
+	margin:1rem;
+	display:flex;
+}
+
+[id=views]{
+	label {
+		display:flex;
+		flex:1;
+	}
+}
+
+section {
+	position:absolute;
+	max-width:20vw;
+}
+
 [id=instrument] {
 	flex: 1;
-
 	&:not([data-display*=note]){
 		.note:not([data-major],[data-minor]) span {
 			opacity:0;
@@ -62,16 +83,37 @@ main {
 	}
 }
 
+.arm {
+	border: 1px solid black;
+	border-top:0;
+	display: flex;
+	flex-direction:row;
+	font-size:2em;
+	margin: auto;
+	max-width: fit-content;
+	padding-bottom: 1rem;
+	padding-top: 1rem;
+}
+
 .note {
+	// reset
 	appearance:none;
-	display:flex;
+	outline:none;
 	border: 0;
-	cursor: pointer;
-	line-height:2rem;
-	width: $note-size;
-	height: $note-size;
+
+	//layout
 	background-color: $note-background;
 	border-bottom:1px solid black;
+	border-right:1px solid black;
+	&[data-position="1"]{
+		border-right:0; 
+	}
+
+	cursor: pointer;
+	display:flex;
+	line-height:2rem;
+	height: $note-size;
+	width: $note-size;
 
 	span {
 		font-family: $note-font-family;
@@ -85,10 +127,11 @@ main {
 
 	&:hover {
 		color: $note-hover;
-		background-color: $note-background-hover;
+		background-color: $note-hover-background;
 	}
 
 	&[aria-pressed="true"] {
+		background-color:$note-pressed-background;
 	}
 
 	&[data-minor=true],
@@ -110,27 +153,5 @@ main {
 		right:-1rem;
 		top:2rem;
 	}
-}
-
-.footer {
-	color: darkolivegreen;
-	border-top: 1px solid darkolivegreen;
-	font-size: 2rem;
-	margin: auto;
-	margin-top: 2rem;
-	text-align: center;
-	width: min(50vh, 100%);
-}
-
-.arm {
-	border: 1px solid black;
-	border-top:0;
-	display: flex;
-	flex-direction:row;
-	font-size:2em;
-	margin: auto;
-	max-width: fit-content;
-	padding-bottom: 1rem;
-	padding-top: 1rem;
 }
 
