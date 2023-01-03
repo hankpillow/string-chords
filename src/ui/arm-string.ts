@@ -35,7 +35,7 @@ export default class ArmString extends Component {
                 return html`
                     <button
                         class="note"
-                        data-fret="${note.fret}"
+                        data-fret="${note.fret === 0 ? "open" : note.fret}"
                         data-position="${position}"
                         data-minor="${isMinor(note.name)}"
                         data-major="${isMajor(note.name)}"

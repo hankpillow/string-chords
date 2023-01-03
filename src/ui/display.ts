@@ -14,8 +14,8 @@ export default class Display extends Component {
 
   render({ items }) {
     return html`
-<div id="views">
-    <legend>View</legend>
+<div id="display">
+    <legend>Display</legend>
     ${Object.keys(items).map((name) => {
       const checked = items[name] as boolean;
       return html`<label>

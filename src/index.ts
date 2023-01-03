@@ -32,7 +32,10 @@ class App extends Component {
                             this.setState({ view: items });
                         }}
                     />
-                    <${Chord} notes=${this.state.pressed} />
+                    <${Chord}
+                        notes=${this.state.pressed}
+                        strings=${instrument.strings.length}
+                    />
                 </aside>
                 <${Instrument}
                     view=${this.state.view}
