@@ -1,36 +1,33 @@
-import { html } from "htm/preact/standalone";
+import { html, Component } from "htm/preact/standalone";
 
-export default ({ update }) => {
-  const items = {
-    major: true,
-    minor: true,
-    fret: true,
-    note: true
-  }
-  const onChange = (event: Event) => {
-    const input = event.target as HTMLInputElement
-    items[input.value] = input.checked as boolean;
-    if (typeof update === "function") {
-      update(items);
-    }
+export default class Display extends Component {
+
+  state = { items: this.props.items }
+  onUpdate = this.props.onUpdate as Function || function() { }
+
+  update(name: string, checked: boolean) {
+    const { items } = this.state;
+    items[name] = checked;
+    this.setState({ items })
+    this.onUpdate(items)
   }
 
-  const render = () => html`
-  <div>
-    <legend>Display</legend>
-    <label>
-      <input type="checkbox" onChange=${onChange} checked value="note" />Notes
-    </label>
-    <label>
-      <input type="checkbox" onChange=${onChange} checked value="fret" />Fret number
-    </label>
-    <label>
-      <input type="checkbox" onChange=${onChange} checked value="major" />Major notes 
-    </label>
-    <label>
-      <input type="checkbox" onChange=${onChange} checked value="minor" />Minor notes 
-    </label>
+  render({ items }) {
+    return html`
+<div id="views">
+    <legend>View</legend>
+    ${Object.keys(items).map((name) => {
+      const checked = items[name] as boolean;
+      return html`<label>
+        <input 
+          type="checkbox" 
+          name=${name} 
+          checked="${checked}"
+          onChange=${(event) => this.update(name, event.target.checked)}
+        />
+        ${name}
+      </label>`
+    })}
   </div>`;
-
-  return { render, items }
+  }
 }

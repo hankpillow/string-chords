@@ -1,37 +1,35 @@
-import "./index.scss";
-import { render, html } from "htm/preact/standalone";
-import BanjoSetting from "./settings/banjo";
-import Instrument from "./ui/instrument";
+import { render, html, Component } from "htm/preact/standalone";
 import Display from "./ui/display";
-import ShowChords from "./ui/show-chords";
+import BanjoSetting from "./settings/banjo";
+import Instrument, { InstrumentSettings } from "./ui/instrument";
 
-const updateDisplay = (views: Record<string, boolean>) => {
-  (document.querySelector("#instrument") as HTMLDivElement)
-    .setAttribute(
-      "data-display",
-      Object.keys(views).filter(view => views[view]).join(",")
-    )
+class App extends Component {
+  state = {
+    view: {
+      note: true,
+      major: true,
+      minor: true,
+      fret: true
+    },
+  }
+  render({ instrument }: { instrument: InstrumentSettings }) {
+    return html`
+    <main>
+      <header>
+        <h1 aria-describedby="instrument-name">🎵String Chords</h1>
+        <small id="instrument-name">${instrument.name}</small>
+      </header>
+      <aside>
+          <${Display} 
+            items=${this.state.view}
+            onUpdate=${(items: Record<string, boolean>) => { this.setState({ view: items }) }}
+          />
+        <div id="chords"></div>
+      </aside>
+      <${Instrument} view=${this.state.view} settings=${instrument} />
+    </main>
+    `;
+  }
 }
 
-const onNotePressed = (notes) => {
-  chords.update(notes)
-  chords.render();
-}
-
-const chords = ShowChords();
-const display = Display({ update: updateDisplay });
-const instrument = Instrument({ ...BanjoSetting, keyPress: onNotePressed })
-
-const app = html`
-<header><h1>🎵String Chords</h1></header>
-<section>
-  <div id="views">${display.render()}</div>
-  <div id="chords">${chords.render()}</div>
-</section>
-<div id="instrument">${instrument.render()}</div>
-`;
-
-render(app, document.body);
-
-// on mount
-updateDisplay(display.items);
+render(html`<${App} instrument=${BanjoSetting}/>`, document.body);
