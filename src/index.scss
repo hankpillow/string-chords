@@ -119,7 +119,7 @@ aside {
         background-color: $note-hover-background-color;
     }
 
-    &[data-position="1"] {
+    &[data-position="0"] {
         border-right-color: transparent;
         &:after {
             color: $note-fret-font-color;
