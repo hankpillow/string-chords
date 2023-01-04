@@ -16,27 +16,26 @@ class App extends Component {
     };
     checkStrings(pressed: Record<number, NoteSettings>) {
         this.setState({ pressed });
-        console.log(pressed);
     }
     render({ instrument }: { instrument: InstrumentSettings }) {
         return html`
+            <menu id="menu">
+                <${Display}
+                    items=${this.state.view}
+                    onUpdate=${(items: Record<string, boolean>) => {
+                        this.setState({ view: items });
+                    }}
+                />
+                <${Chord}
+                    notes=${this.state.pressed}
+                    strings=${instrument.strings.length}
+                />
+            </menu>
             <main>
                 <header>
                     <h1 aria-describedby="instrument-name">🎵String Chords</h1>
                     <small id="instrument-name">${instrument.name}</small>
                 </header>
-                <aside>
-                    <${Display}
-                        items=${this.state.view}
-                        onUpdate=${(items: Record<string, boolean>) => {
-                            this.setState({ view: items });
-                        }}
-                    />
-                    <${Chord}
-                        notes=${this.state.pressed}
-                        strings=${instrument.strings.length}
-                    />
-                </aside>
                 <${Instrument}
                     view=${this.state.view}
                     settings=${instrument}

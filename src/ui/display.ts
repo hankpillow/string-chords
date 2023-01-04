@@ -14,8 +14,8 @@ export default class Display extends Component {
 
   render({ items }) {
     return html`
-<div id="display">
-    <legend>Display</legend>
+<details id="display">
+    <summary>Display</summary>
     ${Object.keys(items).map((name) => {
       const checked = items[name] as boolean;
       return html`<label>
@@ -28,6 +28,6 @@ export default class Display extends Component {
         ${name}
       </label>`
     })}
-  </div>`;
+  </details>`;
   }
 }

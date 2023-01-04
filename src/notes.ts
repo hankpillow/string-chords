@@ -1,49 +1,47 @@
-export enum Note {
-    C = "C",
-    CMajor = "C#",
-    DMinor = "D♭",
-    D = "D",
-    DMajor = "D#",
-    EMinor = "E♭",
-    E = "E",
-    F = "F",
-    FMajor = "F#",
-    GMinor = "G♭",
-    G = "G",
-    GMajor = "G#",
-    AMinor = "A♭",
-    A = "A",
-    AMajor = "A#",
-    BMinor = "B♭",
-    B = "B",
-}
-
-export const DefaultNotes = new Set([Note.C, Note.D, Note.E, Note.F, Note.A, Note.G, Note.B]);
-
-export const MajorNotes = new Set([Note.CMajor, Note.DMajor, Note.FMajor, Note.GMajor, Note.AMajor]);
-
-export const MinorNotes = new Set([Note.DMinor, Note.EMinor, Note.GMinor, Note.AMinor, Note.BMinor]);
-
 type TypeScale = Record<string, string>;
 
+export enum Note {
+    A = "A",
+    B = "B",
+    C = "C",
+    D = "D",
+    E = "E",
+    F = "F",
+    G = "G", // next majors
+    AMajor = "A#",
+    CMajor = "C#",
+    DMajor = "D#",
+    FMajor = "F#",
+    GMajor = "G#", // next minors
+    AMinor = "A♭",
+    BMinor = "B♭",
+    CMinor = "C♭",
+    DMinor = "D♭",
+    EMinor = "E♭",
+    GMinor = "G♭",
+}
+export const DefaultNotes = new Set([Note.C, Note.D, Note.E, Note.F, Note.A, Note.G, Note.B]);
+export const MajorNotes = new Set([Note.CMajor, Note.DMajor, Note.FMajor, Note.GMajor, Note.AMajor]);
+export const MinorNotes = new Set([Note.DMinor, Note.EMinor, Note.GMinor, Note.AMinor, Note.BMinor]);
 export const NotesNames: TypeScale = {
+    [Note.A]: "La",
+    [Note.B]: "Si",
     [Note.C]: "Do",
-    [Note.CMajor]: "Do Major",
-    [Note.DMinor]: "Re Minor",
     [Note.D]: "Re",
-    [Note.DMajor]: "Re Major",
-    [Note.EMinor]: "Mi Minor",
     [Note.E]: "Mi",
     [Note.F]: "Fa",
-    [Note.FMajor]: "Fa Major",
-    [Note.GMinor]: "Sol Minor",
-    [Note.G]: "Sol",
-    [Note.GMajor]: "Sol Major",
-    [Note.AMinor]: "La Minor",
-    [Note.A]: "La",
+    [Note.G]: "Sol", // next majors
     [Note.AMajor]: "La Major",
+    [Note.CMajor]: "Do Major",
+    [Note.DMajor]: "Re Major",
+    [Note.FMajor]: "Fa Major",
+    [Note.GMajor]: "Sol Major", // next minors
+    [Note.AMinor]: "La Minor",
     [Note.BMinor]: "Si Minor",
-    [Note.B]: "Si",
+    [Note.CMinor]: "Do Minor",
+    [Note.DMinor]: "Re Minor",
+    [Note.EMinor]: "Mi Minor",
+    [Note.GMinor]: "Sol Minor",
 } as const;
 
 export const MajorScale: TypeScale = {

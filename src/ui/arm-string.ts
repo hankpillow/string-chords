@@ -32,10 +32,11 @@ export default class ArmString extends Component {
             data-position=${position}
         >
             ${notes.map((note: NoteSettings) => {
+                const fret = `${note.fret === 0 ? "open" : note.fret}`;
                 return html`
                     <button
                         class="note"
-                        data-fret="${note.fret === 0 ? "open" : note.fret}"
+                        data-fret=${fret}
                         data-position="${position}"
                         data-minor="${isMinor(note.name)}"
                         data-major="${isMajor(note.name)}"
