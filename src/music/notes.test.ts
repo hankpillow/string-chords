@@ -90,8 +90,8 @@ minorNotes.forEach((note: Note) => {
 //         assert.equal(note.octave, 0);
 //     });
 // });
-//  
-describe("getNoteFromFret(note,fret,scale)",()=>{
+//
+describe("getNoteFromFret(note,fret,scale)", () => {
     test(`Given (A, 0, MajorScale) returns {note:A,fret:0,octave:0}`, () => {
         const next = getNoteFromFret(Note.A, 0, MajorScale);
         expect(next.name).toBe(Note.A);
@@ -101,9 +101,9 @@ describe("getNoteFromFret(note,fret,scale)",()=>{
 
     test(`Given (A, 11, MajorScale) returns {note:GManjor,fret:11,octave:0}`, () => {
         const next = getNoteFromFret(Note.A, 11, MajorScale);
-        expect(next.name).toBe( Note.GMajor);
-        expect(next.fret).toBe( 11);
-        expect(next.octave).toBe( 0);
+        expect(next.name).toBe(Note.GMajor);
+        expect(next.fret).toBe(11);
+        expect(next.octave).toBe(0);
     });
 
     test(`Given (A, 12, MajorScale) returns {note:A,fret:12,octave:1}`, () => {
@@ -112,4 +112,4 @@ describe("getNoteFromFret(note,fret,scale)",()=>{
         expect(next.fret).toBe(12);
         expect(next.octave).toBe(1);
     });
-})
+});

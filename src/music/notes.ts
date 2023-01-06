@@ -71,7 +71,7 @@ export const getNoteFromFret = (note: Note, fret: number, scale: Scale): NoteSet
     const octave = Math.floor(fret / 12);
     let lastNote = note;
     let count = fret;
-    while (fret>0 && count--) {
+    while (fret > 0 && count--) {
         lastNote = scale[lastNote] as Note;
     }
     return { name: lastNote, octave, fret } as NoteSettings;

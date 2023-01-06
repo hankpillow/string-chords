@@ -27,10 +27,7 @@ export default class ArmString extends Component {
         };
     }
     render({ position, notes }: { notes: NoteSettings[]; position: number }) {
-        return html`<div
-            class="string"
-            data-position=${position}
-        >
+        return html`<div class="string" data-position=${position}>
             ${notes.map((note: NoteSettings) => {
                 const fret = `${note.fret === 0 ? "open" : note.fret}`;
                 return html`

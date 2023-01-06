@@ -4,5 +4,5 @@
   "printWidth": 120,
   "semi": true,
   "singleQuote": false,
-  "arrowParens": "always",
+  "arrowParens": "always"
 }
